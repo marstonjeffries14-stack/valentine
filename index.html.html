@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Valentine 💖</title>
+
+<style>
+  body {
+    margin: 0;
+    height: 100vh;
+    background: radial-gradient(circle, #fff1c1, #ffd6e0);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+  }
+
+  .card {
+    background: white;
+    padding: 40px;
+    border-radius: 30px;
+    text-align: center;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    z-index: 2;
+  }
+
+  .sunflower {
+    font-size: 100px;
+    animation: wiggle 2s infinite;
+  }
+
+  @keyframes wiggle {
+    0% { transform: rotate(0deg); }
+    25% { transform: rotate(5deg); }
+    50% { transform: rotate(0deg); }
+    75% { transform: rotate(-5deg); }
+    100% { transform: rotate(0deg); }
+  }
+
+  h1 {
+    margin: 20px 0;
+  }
+
+  button {
+    padding: 12px 30px;
+    margin: 10px;
+    font-size: 16px;
+    border-radius: 30px;
+    border: none;
+    cursor: pointer;
+  }
+
+  .yes {
+    background: #ff4d6d;
+    color: white;
+  }
+
+  .no {
+    background: #aaa;
+    color: white;
+  }
+
+  /* CONFETTI */
+  .confetti {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    animation: explode 3s ease-out forwards;
+  }
+
+  @keyframes explode {
+    0% {
+      transform: translate(0,0) scale(1);
+      opacity: 1;
+    }
+    100% {
+      transform: translate(var(--x), var(--y)) rotate(720deg);
+      opacity: 0;
+    }
+  }
+</style>
+</head>
+
+<body>
+
+<audio id="bgMusic" loop preload="auto">
+  <source src="./love-you-more.mp3" type="audio/mpeg">
+</audio>
+
+<div class="card" id="card">
+  <div class="sunflower">🌻</div>
+  <h1>Marston wants you to be his valentine.<br>Do u accept ? 🥰</h1>
+  <button class="yes" onclick="yesClick()">Yes 💕</button>
+  <button class="no" onclick="noClick()">No 🙈</button>
+</div>
+
+<script>
+function playMusic() {
+  const music = document.getElementById("bgMusic");
+  music.volume = 0.6;
+  music.play().catch(() => {});
+}
+
+function yesClick() {
+  playMusic();
+  massiveConfetti();
+  document.getElementById("card").innerHTML = `
+    <div class="sunflower">🌻</div>
+    <h1>YAYY COMMON MYKILL W 💖🔥</h1>
+  `;
+}
+
+function noClick() {
+  playMusic();
+  document.getElementById("card").innerHTML = `
+    <div class="sunflower">🌻</div>
+    <h1>OPTION UNAVAILABLE 😌</h1>
+  `;
+}
+
+function massiveConfetti() {
+  for (let i = 0; i < 300; i++) {
+    const c = document.createElement("div");
+    c.className = "confetti";
+
+    c.style.backgroundColor =
+      ["#ff4d6d", "#ffd166", "#06d6a0", "#118ab2", "#9b5de5"]
+      [Math.floor(Math.random() * 5)];
+
+    c.style.left = "50%";
+    c.style.top = "50%";
+
+    c.style.setProperty("--x", (Math.random() * 900 - 450) + "px");
+    c.style.setProperty("--y", (Math.random() * 900 - 450) + "px");
+
+    document.body.appendChild(c);
+    setTimeout(() => c.remove(), 3000);
+  }
+}
+</script>
+
+</body>
+</html>
